@@ -24215,6 +24215,23 @@ void CGame::OnKeyUp(WPARAM wParam)
 		}	}
 		break;
 
+	case 78:// 'N'
+		if (m_cGameMode == GAMEMODE_ONMAINGAME)
+		{
+			if (m_bCtrlPressed)
+			{
+				if (m_bShowTiming == TRUE)
+				{
+					m_bShowTiming = FALSE;
+				}
+				else {
+					m_bShowTiming = TRUE;
+					m_sTiming = 0;
+				}
+			}
+		}
+		break;
+
 	case 80://'P'
 		if( ( m_bCtrlPressed == TRUE ) && ( m_cGameMode == GAMEMODE_ONMAINGAME ) && (!m_bInputStatus) )
 		{	
@@ -29884,7 +29901,7 @@ void CGame::UpdateScreen_OnGame()
 
 	if (m_cGameModeCount == 0)
 	{	m_DDraw.ClearBackB4();
-		m_dwFPStime = m_dwCheckConnTime = m_dwCheckSprTime = m_dwCheckChatTime = dwTime;
+		m_dwFPStime = m_dwTimingCountTime = m_dwCheckConnTime = m_dwCheckSprTime = m_dwCheckChatTime = dwTime;
 		m_iFrameCount = 0;
 		if( m_bMusicStat ) StartBGM();
 		//if(m_iLevel < 40) AddEventList(UPDATE_SCREEN_ONGAME12, 10);
@@ -30339,18 +30356,37 @@ void CGame::UpdateScreen_OnGame()
 		m_iFrameCount = 0;
 	}
 
+	if (dwTime - m_dwTimingCountTime > 1000)
+	{
+		if (m_sTiming == 60) {
+			m_sTiming = 0;
+			m_sTiming++;
+			m_dwTimingCountTime = dwTime;
+		}
+		else {
+			m_sTiming++;
+			m_dwTimingCountTime = dwTime;
+		}
+	}
+
 	if(iUpdateRet != 0 && (dwTime - lastFriendUpdate) < 6000 && (dwTime - lastFriendUpdate) > 4000)
 		for(int f = 0; f < 13; f++)
 			if (friendsList[f].updated == false)
 				friendsList[f].online = false;
 
-	if( iUpdateRet != 0 )
-	{	if( m_bShowFPS )
-		{	
-			wsprintf( G_cTxt, "Real FPS: %d", m_iFPS );
-			PutString( 10, 100, G_cTxt, RGB(255,255,255) );
+	if (iUpdateRet != 0)
+	{
+		if (m_bShowTiming)
+		{ 
+			wsprintf(G_cTxt, "Timing : %d", m_sTiming);
+			PutString(10, 112, G_cTxt, RGB(255, 255, 255));
 		}
-		if( m_DDraw.iFlip() == DDERR_SURFACELOST ) RestoreSprites();
+		if (m_bShowFPS)
+		{
+			wsprintf(G_cTxt, "Real Fps : %d", m_bShowFPS);
+			PutString(10, 100, G_cTxt, RGB(255, 255, 255));
+		}
+		if (m_DDraw.iFlip() == DDERR_SURFACELOST) RestoreSprites();
 	}
 
 	// m_iPlayerStatus 0x000F

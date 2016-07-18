@@ -767,6 +767,7 @@ public:
 	DWORD m_dwCommanderCommandRequestedTime;
 	DWORD m_dwTopMsgTime;
 	DWORD m_dwEnvEffectTime;
+	
 
 	//v2.2
 	DWORD m_dwMonsterEventTime;
@@ -829,6 +830,10 @@ public:
 	bool  m_showAllDmg;
 	bool  m_bigItems;
 	bool  m_showTimeStamp;
+
+	DWORD m_dwTimingCountTime;
+	BOOL m_bShowTiming;
+	short m_sTiming;
 
 	int m_iFightzoneNumber;
 	int m_iFightzoneNumberTemp;
