@@ -28513,6 +28513,11 @@ void CGame::DrawObjectName(short sX, short sY, char * pName, int iStatus)
 		strcat(cTxt, MSG_PK);
 
 	PutString2(sX, sY+14 +iAddY, cTxt, sR, sG, sB);
+	 if(strcmp(pName, "GM1") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211);
+	 if(strcmp(pName, "GM2") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211);
+	 if(strcmp(pName, "GM3") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211;
+	 if(strcmp(pName, "X4N1") == 0) PutString2(sX, sY+25,"Game Master", 148,0,211;
+
 
 #ifdef _DEBUG
 	wsprintf(G_cTxt,"Status: 0x%.8X ",iStatus);
