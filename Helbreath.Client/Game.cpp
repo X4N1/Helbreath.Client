@@ -28515,8 +28515,8 @@ void CGame::DrawObjectName(short sX, short sY, char * pName, int iStatus)
 	PutString2(sX, sY+14 +iAddY, cTxt, sR, sG, sB);
 	 if(strcmp(pName, "GM1") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211);
 	 if(strcmp(pName, "GM2") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211);
-	 if(strcmp(pName, "GM3") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211;
-	 if(strcmp(pName, "X4N1") == 0) PutString2(sX, sY+25,"Game Master", 148,0,211;
+	 if(strcmp(pName, "GM3") == 0) PutString2(sX, sY+25, "Game Master", 148,0,211);
+	 if(strcmp(pName, "X4N1") == 0) PutString2(sX, sY+25,"Game Master", 148,0,211);
 
 
 #ifdef _DEBUG
@@ -29523,7 +29523,9 @@ void CGame::GetItemName(CItem *pItem, char *pStr1, char *pStr2, char *pStr3)
 	{	strcpy(cName, m_pItemNameList[i]->m_cName);
 		break;
 	}
-
+	if (strcmp(pItem->m_cName, "DemonSlayer") == 0) wsprintf(cStr5, "Extra Damage against Demons.");
+    else wsprintf(cStr5, "");
+	
      	/* if (0 == memcmp(pItem->m_cName,"AcientTablet", 12)) m_bIsSpecial = TRUE;
 	else if (0 == memcmp(pItem->m_cName,"NecklaceOf", 10)) m_bIsSpecial = TRUE;
 	else if (0 == memcmp(pItem->m_cName,"DarkElfBow", 10)) m_bIsSpecial = TRUE;
@@ -30243,6 +30245,10 @@ void CGame::UpdateScreen_OnGame()
 			wsprintf(G_cTxt, UPDATE_SCREEN_ONGAME10, m_pItemList[m_stMCursor.sSelectedObjectID]->m_wCurLifeSpan);
 			PutString(msX, msY +25 +iLoc, G_cTxt, RGB(150,150,150), FALSE, 1);
 			iLoc += 15;
+			  if (strlen(cStr5) != 0) // opis itemu ,kolor napisu
+        {    PutString(msX, msY+25 +iLoc, cStr5, RGB(150,150,150), FALSE, 1);
+            iLoc += 15;
+        }
 		}
 		else if (m_pItemList[m_stMCursor.sSelectedObjectID]->m_cItemType ==  ITEMTYPE_USE_DEPLETE_DEST)  
 		{	

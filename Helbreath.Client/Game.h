@@ -977,6 +977,7 @@ public:
 	char m_cTeleportMapName[12];
 	char m_cConstructMapName[12];
 	char m_cGameServerName[22]; //  Gateway
+	char cStr5[256]; //opis itemu
 
 	char m_cItemDrop[25][25];
 
